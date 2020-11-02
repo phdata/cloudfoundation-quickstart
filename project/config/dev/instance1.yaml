@@ -1,0 +1,5 @@
+template_path: test/instance.json
+env: dev
+parameters:
+  SubnetId: !stack_output dev/subnet.yaml::SubnetId
+  name:   "dev-instance11"

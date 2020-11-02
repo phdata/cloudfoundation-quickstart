@@ -1,0 +1,3 @@
+project_code: "cloudfoundation-demo"
+template_bucket_name: cloudfoundation-demo-dev
+region: us-east-1

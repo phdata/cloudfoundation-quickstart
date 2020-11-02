@@ -1,0 +1,63 @@
+# Official pythin image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/python/tags/
+image: python:3.7
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+#   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+  cfci_version: "1.4.2"
+  project: "valhalla"
+  deployment_decriptor: "deployment.yaml"
+  artfct_base: "https://repository.phdata.io/artifactory/cloudfoundation/releases/"
+  plan_all: "true"
+  
+before_script:
+    - export
+    - apt-get update && apt-get install -y jq
+    - pip install --quiet -r requirements.txt
+    - curl -u$artifactory_usr:$artifactory_pwd -O $artfct_base$cfci_version.zip
+    - unzip $cfci_version.zip
+    - cp cloudfoundation/* .
+    - cp stack_parser.py $project
+    - rm -rf $artfct_base$cfci_version.zip cloudfoundation/
+    - chmod +x $CI_PROJECT_DIR/gitlab_build.sh
+    - cd $project
+    - export stage="build"
+
+after_script:
+    - cd $project
+    - export stage="post_build"
+    - $CI_PROJECT_DIR/gitlab_build.sh
+
+stages:
+  - deploy_plan
+  - dev_deploy
+  - prod_deploy
+
+deploy_plan:
+  stage: deploy_plan
+  script:
+    - export pr_status="OPEN"
+    - $CI_PROJECT_DIR/gitlab_build.sh
+  only:
+    - merge_requests
+
+dev_deploy:
+  stage: dev_deploy
+  script:
+    - export deploy_environment="dev"
+    - export pr_status="MERGED"
+    - $CI_PROJECT_DIR/gitlab_build.sh
+  only:
+    - master
+
+prod_deploy:
+  stage: prod_deploy
+  script:
+    - export deploy_environment="prod"
+    - export pr_status="MERGED"
+    - $CI_PROJECT_DIR/gitlab_build.sh
+  only:
+    - master
+  when: manual

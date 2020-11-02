@@ -1,0 +1,9 @@
+template_path: delete/s3_bucket.json
+
+parameters:
+  BucketName: "phdata-valhalla-21" 
+
+sceptre_user_data:
+  tags:
+    - "owner=phdata.io"
+    - "env = prod"

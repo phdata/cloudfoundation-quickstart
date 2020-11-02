@@ -1,0 +1,10 @@
+template_path: test/subnet.json
+parameters:
+  CidrBlock: "10.0.0.0/28"
+  VpcId: !stack_output dev/vpc.yaml::VpcId
+  name: "dev-subnet"
+
+
+  
+
+
