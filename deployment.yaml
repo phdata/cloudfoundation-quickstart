@@ -18,8 +18,8 @@ deploy:
 undeploy:
     - { name: instance2.yaml, phdata_gold_template: true, version: 1.0.0, deploy_env: [all] }
     - { name: instance1.yaml, phdata_gold_template: true, version: 1.0.0, deploy_env: [all] }
-    - { name: subnet.yaml, phdata_gold_template: true, version: 1.0.0, deploy_env: [prod] } 
-    - { name: vpc.yaml, phdata_gold_template: true, version: 1.0.0, deploy_env: [prod] } 
+    - { name: subnet.yaml, phdata_gold_template: true, version: 1.0.0, deploy_env: [all] } 
+    - { name: vpc.yaml, phdata_gold_template: true, version: 1.0.0, deploy_env: [all] } 
 
 
 # stacks listed under IGNORE are deployed by some other means,
