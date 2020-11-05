@@ -1,4 +1,4 @@
-template_path: test/vpc.json
+template_path: vpc.json
 parameters:
   CidrBlock: 10.0.0.0/16
   name: "dev-vpc"

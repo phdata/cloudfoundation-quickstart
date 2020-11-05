@@ -13,6 +13,7 @@ env:
     bb_app_pwd: /CodeBuild/bb_codebuild_pwd
     # artifactory_usr: /CodeBuild/cfgoldbuild/artifactory_usr
     # artifactory_pwd: /CodeBuild/cfgoldbuild/artifactory_pwd
+    
 phases:
   install:
     runtime-versions:

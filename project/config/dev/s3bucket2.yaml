@@ -1,7 +1,7 @@
-template_path: delete/s3_bucket.json
+template_path: s3_bucket.json
 
 parameters:
-  BucketName: "phdata-valhalla-21" 
+  BucketName: "phdata-valhalla-2" 
 
 sceptre_user_data:
   tags:

@@ -3,12 +3,11 @@ version: 0.2
 env:
   variables:
     cfci_version: "1.0.0"
-     project: "project"
-     deployment_decriptor: "deployment.yaml"
-     quickstart: "true"
-     repo_type: "github"
-     # provide the path of project in owner/repository-name format  
-     owner_repo: "phdata/cloudfoundation-demo"
+    project: "project"
+    deployment_decriptor: "deployment.yaml"
+    quickstart: "true"
+    repo_type: "github"
+    owner_repo: "phdata/cloudfoundation-demo"  # provide the path of project in owner/repository-name format  
   parameter-store:
     access_token: /svc/github/access_token
     # artifactory_usr: /CodeBuild/cfgoldbuild/artifactory_usr
