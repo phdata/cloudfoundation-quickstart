@@ -1,0 +1,38 @@
+version: 0.2
+
+env:
+  variables:
+    cfci_version: "1.0.0"
+     project: "project"
+     deployment_decriptor: "deployment.yaml"
+     quickstart: "true"
+     repo_type: "github"
+     # provide the path of project in owner/repository-name format  
+     owner_repo: "phdata/cloudfoundation-demo"
+  parameter-store:
+    access_token: /svc/github/access_token
+    # artifactory_usr: /CodeBuild/cfgoldbuild/artifactory_usr
+    # artifactory_pwd: /CodeBuild/cfgoldbuild/artifactory_pwd
+    
+phases:
+  install:
+    runtime-versions:
+       python: 3.8
+    commands:
+       - pip install --quiet -r $CODEBUILD_SRC_DIR/requirements.txt
+  pre_build:
+    commands:
+       - git clone --branch $cfci_version --single-branch https://github.com/phdata/cloudfoundation-cfci-utilities.git
+       - cp cloudfoundation-cfci-utilities/releases/build-tools/* .
+       - cp stack_parser.py $project
+       - rm -rf cloudfoundation-cfci-utilities
+       - cd $project
+  build:
+    commands:
+       - export stage="build"
+       - chmod +x $CODEBUILD_SRC_DIR/build.sh
+       - $CODEBUILD_SRC_DIR/build.sh
+  post_build:
+    commands:
+      - export stage="post_build"
+      - $CODEBUILD_SRC_DIR/build.sh

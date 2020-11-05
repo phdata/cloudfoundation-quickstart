@@ -2,29 +2,29 @@ version: 0.2
 
 env:
   variables:
-     cfci_version: "v5"
-     project: "valhalla"
+     cfci_version: "1.0.0"
+     project: "project"
+     quickstart: "true"
+     repo_type: "bitbucket"
      deployment_decriptor: "deployment.yaml"
-     artfct_base: "https://repository.phdata.io/artifactory/cloudfoundation/releases/"
 
   parameter-store:
     bb_app_user: /CodeBuild/bb_codebuild_user
     bb_app_pwd: /CodeBuild/bb_codebuild_pwd
-    artifactory_usr: /CodeBuild/cfgoldbuild/artifactory_usr
-    artifactory_pwd: /CodeBuild/cfgoldbuild/artifactory_pwd
+    # artifactory_usr: /CodeBuild/cfgoldbuild/artifactory_usr
+    # artifactory_pwd: /CodeBuild/cfgoldbuild/artifactory_pwd
 phases:
   install:
     runtime-versions:
-       python: 3.7
+       python: 3.8
     commands:
        - pip install --quiet -r $CODEBUILD_SRC_DIR/requirements.txt
   pre_build:
     commands:
-       - curl -u$artifactory_usr:$artifactory_pwd -O $artfct_base$cfci_version.zip
-       - unzip $cfci_version.zip
-       - cp $cfci_version/* .
+       - git clone --branch $cfci_version --single-branch https://github.com/phdata/cloudfoundation-cfci-utilities.git
+       - cp cloudfoundation-cfci-utilities/releases/build-tools/* .
        - cp stack_parser.py $project
-       - rm -rf $artfct_base$cfci_version.zip $cfci_version/
+       - rm -rf cloudfoundation-cfci-utilities
        - cd $project
   build:
     commands:

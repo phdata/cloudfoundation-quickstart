@@ -6,8 +6,10 @@ image: python:3.7
 # only cache local items.
 variables:
 #   PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-  cfci_version: "1.4.2"
-  project: "valhalla"
+  cfci_version: "1.0.0"
+  project: "project"
+  quickstart: "true"
+  repo_type: "gitlab"
   deployment_decriptor: "deployment.yaml"
   artfct_base: "https://repository.phdata.io/artifactory/cloudfoundation/releases/"
   plan_all: "true"
@@ -16,11 +18,10 @@ before_script:
     - export
     - apt-get update && apt-get install -y jq
     - pip install --quiet -r requirements.txt
-    - curl -u$artifactory_usr:$artifactory_pwd -O $artfct_base$cfci_version.zip
-    - unzip $cfci_version.zip
-    - cp cloudfoundation/* .
+    - git clone --branch $cfci_version --single-branch https://github.com/phdata/cloudfoundation-cfci-utilities.git
+    - cp cloudfoundation-cfci-utilities/releases/build-tools/* .
     - cp stack_parser.py $project
-    - rm -rf $artfct_base$cfci_version.zip cloudfoundation/
+    - rm -rf cloudfoundation-cfci-utilities
     - chmod +x $CI_PROJECT_DIR/gitlab_build.sh
     - cd $project
     - export stage="build"
