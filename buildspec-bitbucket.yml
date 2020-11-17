@@ -9,8 +9,8 @@ env:
      deployment_decriptor: "deployment.yaml"
 
   parameter-store:
-    bb_app_user: /CodeBuild/bb_codebuild_user
-    bb_app_pwd: /CodeBuild/bb_codebuild_pwd
+    bb_app_user: /svc/bitbucket/app_user
+    bb_app_pwd: /svc/bitbucket/app_pwd
     # artifactory_usr: /CodeBuild/cfgoldbuild/artifactory_usr
     # artifactory_pwd: /CodeBuild/cfgoldbuild/artifactory_pwd
     

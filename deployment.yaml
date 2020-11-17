@@ -11,16 +11,15 @@ deploy_environments:
 # stacks listed under DEPLOY will be deployed by phData Cloud Foundation tool
 # list the stacks as a list
 deploy:
-    - { name: s3bucket1.yaml, phdata_gold_template: true, version: 1.1.1, deploy_env: [all] }
 
 # stacks listed under UNDEPLOY will be deleted by phData Cloud Foundation tool if the stack already exists
 # list the stacks as a list
 undeploy:
+    - { name: s3bucket1.yaml, phdata_gold_template: true, version: 1.1.1, deploy_env: [all] }
     - { name: instance2.yaml, phdata_gold_template: true, version: 1.0.0, deploy_env: [all] }
     - { name: instance1.yaml, phdata_gold_template: true, version: 1.0.0, deploy_env: [all] }
     - { name: subnet.yaml, phdata_gold_template: true, version: 1.0.0, deploy_env: [all] } 
     - { name: vpc.yaml, phdata_gold_template: true, version: 1.0.0, deploy_env: [all] } 
-
 
 # stacks listed under IGNORE are deployed by some other means,
 # these will be ignored by phData Cloud Foundation tool 
