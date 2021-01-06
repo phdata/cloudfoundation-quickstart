@@ -61,7 +61,7 @@ pipeline {
           } 
           environment {
              deploy_environment="dev"
-             pr_status="MERGED"
+             pr_status="DEPLOY"
           }
           steps {
             withCredentials([
@@ -85,7 +85,7 @@ pipeline {
           } 
           environment {
              deploy_environment="prod"
-             pr_status="MERGED"
+             pr_status="DEPLOY"
           }
           steps {
             withCredentials([
